@@ -1,0 +1,65 @@
+<?php
+/*
+ * This document has been generated with
+ * https://mlocati.github.io/php-cs-fixer-configurator/#version:2.18.2|configurator
+ * you can change this configuration by importing this file.
+ */
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setIndent('    ')
+    ->setRules([
+        '@PSR12' => true,
+        '@PSR2' => true,
+        '@Symfony' => true,
+        '@PHP80Migration' => true,
+        '@Symfony:risky' => true,
+        // Each line of multi-line DocComments must have an asterisk [PSR-5] and must be aligned with the first one.
+        'align_multiline_comment' => ['comment_type'=>'all_multiline'],
+        // Each element of an array must be indented exactly once.
+        'array_indentation' => true,
+        // Force strict types declaration in all files. Requires PHP >= 7.0.
+        'declare_strict_types' => true,
+        // Escape implicit backslashes in strings and heredocs to ease the understanding of which are special chars interpreted by PHP and which not.
+        'escape_implicit_backslashes' => true,
+        // Add curly braces to indirect variables to make them clear to understand. Requires PHP >= 7.0.
+        'explicit_indirect_variable' => true,
+        // Converts implicit variables into explicit ones in double-quoted strings or heredoc syntax.
+        'explicit_string_variable' => true,
+        // Method chaining MUST be properly indented. Method chaining with different levels of indentation is not supported.
+        'method_chaining_indentation' => true,
+        // DocBlocks must start with two asterisks, multiline comments must start with a single asterisk, after the opening slash. Both must end with a single asterisk before the closing slash.
+        'multiline_comment_opening_closing' => true,
+        // Forbid multi-line whitespace before the closing semicolon or move the semicolon to the new line for chained calls.
+        'multiline_whitespace_before_semicolons' => true,
+        // Master functions shall be used instead of aliases.
+        'no_alias_functions' => ['sets'=>['@all']],
+        // Properties MUST not be explicitly initialized with `null` except when they have a type declaration (PHP 7.4).
+        'no_null_property_initialization' => true,
+        // Replaces superfluous `elseif` with `if`.
+        'no_superfluous_elseif' => true,
+        // In function arguments there must not be arguments with default values before non-default ones.
+        'no_unreachable_default_argument_value' => true,
+        // There should not be useless `else` cases.
+        'no_useless_else' => true,
+        // There should not be an empty `return` statement at the end of a function.
+        'no_useless_return' => true,
+        // Operators - when multiline - must always be at the beginning or at the end of the line.
+        'operator_linebreak' => true,
+        // Adds a default `@coversNothing` annotation to PHPUnit test classes that have no `@covers*` annotation.
+        'php_unit_test_class_requires_covers' => true,
+        // PHPDoc should contain `@param` for all params.
+        'phpdoc_add_missing_param_annotation' => ['only_untyped'=>false],
+        // Annotations in PHPDoc should be ordered so that `@param` annotations come first, then `@throws` annotations, then `@return` annotations.
+        'phpdoc_order' => true,
+        // Converts `pow` to the `**` operator.
+        'pow_to_exponentiation' => true,
+        // Replaces `rand`, `srand`, `getrandmax` functions calls with their `mt_*` analogs.
+        'random_api_migration' => true,
+        // Local, dynamic and directly referenced variables should not be assigned and directly returned by a function or method.
+        'return_assignment' => true,
+    ])
+    ->setFinder(PhpCsFixer\Finder::create()
+        ->in(__DIR__ . DIRECTORY_SEPARATOR . 'src')
+        ->in(__DIR__ . DIRECTORY_SEPARATOR . 'migrations')
+    )
+;
