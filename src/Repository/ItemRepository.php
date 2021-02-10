@@ -21,6 +21,18 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
+    /**
+     * @return Item[]
+     */
+    public function findAllWithImage(): array
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.image IS NOT NULL')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Item[] Returns an array of Item objects
     //  */
