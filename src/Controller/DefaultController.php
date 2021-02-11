@@ -16,7 +16,7 @@ class DefaultController extends AbstractController
      */
     public function index(ItemRepository $repository): Response
     {
-        $items = $repository->findAllWithImage();
+        $items = $repository->findAllWithImage(8);
 
         return $this->render('index.html.twig', compact('items'));
     }

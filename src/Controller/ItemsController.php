@@ -21,8 +21,11 @@ class ItemsController extends AbstractController
      */
     public function index(): Response
     {
+        $items = $this->repository->findAllWithImage(limit: -1);
+
         return $this->render('items/index.html.twig', [
             'current_menu' => 'items',
+            'items' => $items,
         ]);
     }
 

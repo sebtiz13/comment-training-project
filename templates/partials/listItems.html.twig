@@ -1,0 +1,15 @@
+<div class="row row-cols-4">
+  {% for item in items|default([]) %}
+    <div class="col mt-4">
+      <div class="card">
+        <img src="{{ item.image }}" alt="{{ item.title }}" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{{ path('item.show', {slug: item.slug}) }}">{{ item.title }}</a>
+          </h5>
+          <p class="card-text">{{ item.description }}</p>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

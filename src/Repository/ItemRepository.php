@@ -24,12 +24,16 @@ class ItemRepository extends ServiceEntityRepository
     /**
      * @return Item[]
      */
-    public function findAllWithImage(): array
+    public function findAllWithImage(int $limit = 10): array
     {
-        return $this->createQueryBuilder('i')
-            ->where('i.image IS NOT NULL')
-            ->setMaxResults(10)
-            ->getQuery()
+        $queryBuilder = $this->createQueryBuilder('i')
+            ->where('i.image IS NOT NULL');
+
+        if (-1 !== $limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+
+        return $queryBuilder->getQuery()
             ->getResult();
     }
 

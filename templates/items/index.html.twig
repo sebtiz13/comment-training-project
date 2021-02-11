@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Our items' %}
+{% block title 'All items' %}
 
 {% block body %}
   <div class="container mt-3">
-    <h1>Our items</h1>
+    <h1>All items</h1>
+    {% include 'partials/listItems.html.twig' %}
   </div>
 {% endblock %}
