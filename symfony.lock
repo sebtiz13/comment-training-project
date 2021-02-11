@@ -1,4 +1,16 @@
 {
+    "antishov/doctrine-extensions-bundle": {
+        "version": "1.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.4",
+            "ref": "6c1ceb662f8997085f739cd089bfbef67f245983"
+        }
+    },
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "composer/semver": {
         "version": "3.2.4"
     },
@@ -98,6 +110,9 @@
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v3.0.3"
     },
     "laminas/laminas-code": {
         "version": "4.0.0"
