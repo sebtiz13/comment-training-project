@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Manage items' %}
+
+{% block body %}
+  <div class="container mt-3">
+    <h1>Manage items</h1>
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+    {% endfor %}
+    <div class="text-end">
+      <a href="{{ path('admin.items.create') }}" class="btn btn-primary">new</a>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% if items is defined %}
+        {% for item in items %}
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>
+              <a href="{{ path('admin.items.edit', {id: item.id }) }}" class="btn btn-primary">Edit</a>
+              <form
+                method="post"
+                action="{{ path('admin.items.delete', {id: item.id }) }}"
+                onsubmit="return confirm('Are you sure ?')"
+                style="display: inline-block"
+              >
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                <button class="btn btn-danger">remove</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      {% endif %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
