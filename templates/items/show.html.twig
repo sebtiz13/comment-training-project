@@ -10,5 +10,23 @@
       style="object-fit: cover; width: 100%; height: 500px;"
     >
     <h1>{{ item.title }}</h1>
+    <div class="mt-4">
+      {% for message in app.flashes('email.error') %}
+        <div class="alert alert-danger">
+          {{ message }}
+        </div>
+      {% endfor %}
+      {% for message in app.flashes('email.success') %}
+        <div class="alert alert-success">
+          {{ message }}
+        </div>
+      {% endfor %}
+      {{ form_start(form) }}
+      {{ form_rest(form) }}
+      <div class="form-group">
+        <button class="btn btn-primary">Comment</button>
+      </div>
+      {{ form_end(form) }}
+    </div>
   </div>
 {% endblock %}
