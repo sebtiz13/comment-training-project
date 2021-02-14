@@ -6,6 +6,8 @@ namespace App\Repository;
 
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -21,13 +23,23 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
+    private function _findAllWithImage(): QueryBuilder
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.image IS NOT NULL');
+    }
+
+    public function findAllWithImageQuery(): Query
+    {
+        return $this->_findAllWithImage()->getQuery();
+    }
+
     /**
      * @return Item[]
      */
     public function findAllWithImage(int $limit = 10): array
     {
-        $queryBuilder = $this->createQueryBuilder('i')
-            ->where('i.image IS NOT NULL');
+        $queryBuilder = $this->_findAllWithImage();
 
         if (-1 !== $limit) {
             $queryBuilder->setMaxResults($limit);

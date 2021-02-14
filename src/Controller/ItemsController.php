@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Repository\ItemRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,9 +21,13 @@ class ItemsController extends AbstractController
     /**
      * @Route("/items", name="items.index")
      */
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
-        $items = $this->repository->findAllWithImage(limit: -1);
+        $items = $paginator->paginate(
+            $this->repository->findAllWithImageQuery(),
+            $request->query->getInt('page', 1),
+            12
+        );
 
         return $this->render('items/index.html.twig', [
             'current_menu' => 'items',
