@@ -118,6 +118,7 @@ class User implements UserInterface
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
+     * @codeCoverageIgnore
      */
     public function getSalt(): ?string
     {
@@ -126,6 +127,7 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     * @codeCoverageIgnore
      */
     public function eraseCredentials(): void
     {
