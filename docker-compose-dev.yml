@@ -36,6 +36,7 @@ services:
       # Enable xdebug remote
       XDEBUG_CONFIG: discover_client_host=On
       XDEBUG_MODE: debug
+      SYMFONY_DEPRECATIONS_HELPER: "quiet[]=indirect&quiet[]=other"
 
   # PHP worker run the consumers for RabbitMQ queue
   php-worker:
