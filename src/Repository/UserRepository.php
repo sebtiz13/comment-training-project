@@ -19,6 +19,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -30,7 +33,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
         if (!$user instanceof User) {
+            // It's handled by TypeCheck in PHP8
+            // @codeCoverageIgnoreStart
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            // @codeCoverageIgnoreEnd
         }
 
         $user->setPassword($newEncodedPassword);
