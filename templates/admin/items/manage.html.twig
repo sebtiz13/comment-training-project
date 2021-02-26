@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Manage items' %}
+
+{% block body %}
+  <div class="container mt-3">
+    <h1>
+      {% if new|default(false) %}
+        New item
+      {% else %}
+        Manage item
+      {% endif %}
+    </h1>
+    {{ form_start(form) }}
+    <div class="row">
+      <div class="col col-6">{{ form_row(form.title) }}</div>
+      <div class="col col-6">{{ form_row(form.image) }}</div>
+    </div>
+      {{ form_rest(form) }}
+    <hr>
+    <div class="mt-2">
+      <button class="btn btn-primary">Save</button>
+    </div>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}

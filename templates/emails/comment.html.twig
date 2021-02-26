@@ -1,0 +1,15 @@
+<h1>You have new comment !</h1>
+
+Comment for "{{ comment.item.title }}"
+<br>
+<br>
+<table style="width: 100%">
+  <tr>
+    <td style="width: 50px; text-align: left; vertical-align: top"><b>Author:</b></td>
+    <td style="padding-left: 10px"><a href="mailto:{{ comment.email }}">{{ comment.email }}</a></td>
+  </tr>
+  <tr>
+    <td style="width: 50px; text-align: left; vertical-align: top"><b>Content:</b></td>
+    <td style="padding-left: 10px">{{ comment.message|nl2br }}</td>
+  </tr>
+</table>
