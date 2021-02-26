@@ -29,7 +29,7 @@ services:
       context: .
       dockerfile: docker/php-fpm.dockerfile
     volumes:
-      - appData:/var/www
+      - ./:/var/www/
     networks:
       - net-bridge
     environment:
