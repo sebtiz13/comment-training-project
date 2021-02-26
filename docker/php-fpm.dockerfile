@@ -29,7 +29,11 @@ RUN wget https://get.symfony.com/cli/installer -O - | bash && mv /root/.symfony/
 RUN docker-php-ext-enable xdebug \
   && docker-php-ext-enable apcu
 
-COPY ./php /usr/local/etc/php/conf.d/
+COPY ./docker/php /usr/local/etc/php/conf.d/
+
+COPY . /var/www
+
+RUN composer install
 
 CMD ["php-fpm", "-F"]
 
