@@ -64,6 +64,7 @@ class ItemsController extends AbstractController
             if ($request->isXmlHttpRequest()) {
                 return new Response($isValid ? 'true' : 'false');
             }
+
             return $this->redirectToRoute('item.show', ['slug' => $slug]);
         }
 

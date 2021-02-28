@@ -18,7 +18,6 @@ class CookieGenerator
 
     public function generate(): Cookie
     {
-
         $configuration = Configuration::forSymmetricSigner(new Sha256(), InMemory::plainText($this->secret));
 
         $token = $configuration
