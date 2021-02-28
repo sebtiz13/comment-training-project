@@ -15,18 +15,21 @@ services:
     extends:
       file: docker-compose.base.yml
       service: mercure
+    command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
 
   php:
     extends:
       file: docker-compose.base.yml
       service: php
     volumes:
-      - appData:/var/www
+      - ./:/var/www/
 
   php-worker:
     extends:
       file: docker-compose.base.yml
       service: php-worker
+    volumes_from:
+      - php
     depends_on:
       - rabbitmq
 
@@ -48,4 +51,3 @@ networks:
 volumes:
   caddy_data:
   caddy_config:
-  appData:

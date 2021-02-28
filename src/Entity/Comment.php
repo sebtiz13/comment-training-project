@@ -22,6 +22,8 @@ class Comment
 
     private ?Item $item;
 
+    private ?string $token;
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -54,6 +56,18 @@ class Comment
     public function setItem(?Item $item): self
     {
         $this->item = $item;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }

@@ -45,15 +45,25 @@ class ItemsController extends AbstractController
         $item = $this->repository->findOneBy(['slug' => $slug]);
 
         $comment = new Comment();
-        $comment->setItem($item);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->dispatchMessage($comment);
-            $this->addFlash('email.success', 'Your comment has been sent');
-            // Can't handle error message with async dispatch
-            // $this->addFlash('email.error', 'Error during send email');
+        if ($form->isSubmitted()) {
+            $isValid = $form->isValid();
+            if ($isValid) {
+                $comment->setItem($item);
+                $comment->setToken($request->request->get('comment')['_token']);
+                $this->dispatchMessage($comment);
+
+                if (!$request->isXmlHttpRequest()) {
+                    $this->addFlash('email.success', 'Your comment has been sent');
+                }
+            }
+
+            // In case of ajax submit return simple response
+            if ($request->isXmlHttpRequest()) {
+                return new Response($isValid ? 'true' : 'false');
+            }
 
             return $this->redirectToRoute('item.show', ['slug' => $slug]);
         }

@@ -10,18 +10,13 @@
       style="object-fit: cover; width: 100%; height: 500px;"
     >
     <h1>{{ item.title }}</h1>
-    <div class="mt-4">
-      {% for message in app.flashes('email.error') %}
-        <div class="alert alert-danger">
-          {{ message }}
-        </div>
-      {% endfor %}
+    <div id="form-container" class="mt-4">
       {% for message in app.flashes('email.success') %}
         <div class="alert alert-success">
           {{ message }}
         </div>
       {% endfor %}
-      {{ form_start(form) }}
+      {{ form_start(form, {'attr': {'id': 'submit-form'}}) }}
       {{ form_rest(form) }}
       <div class="form-group">
         <button class="btn btn-primary">Comment</button>
@@ -29,4 +24,48 @@
       {{ form_end(form) }}
     </div>
   </div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+  window.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('submit-form')
+    const formContainer = document.getElementById('form-container')
+    const formToken = document.getElementById('comment__token')
+
+    const headers = new Headers();
+    // Need to be defined so that symfony detect ajax request
+    headers.append('X-Requested-With', 'XMLHttpRequest')
+
+    form.onsubmit = (event) => {
+      event.preventDefault();
+      fetch(form.action, {
+        method: form.method,
+        body: new FormData(event.target),
+        headers,
+      })
+        .then((response) => response.text())
+        .then((response) => {
+          if (response !== 'true') {
+            formContainer.insertAdjacentHTML('afterbegin', '<div class="alert alert-danger">Error during send comment, please retry</div>')
+          }
+        })
+      return false;
+    }
+
+    const url = new URL('{{ mercure_publish_url }}');
+    url.searchParams.append('topic', `http://localhost:3000/comment/${formToken.value}`);
+
+    const eventSource = new EventSource(url, { withCredentials: true });
+    eventSource.onmessage = (event) => {
+      const { status, message } = JSON.parse(event.data)
+      if (status === 'success') {
+        // If message has been correctly delivered, reset form
+        form.reset()
+      }
+      const alertStyle = status === 'success' ? 'success' : 'danger'
+      formContainer.insertAdjacentHTML('afterbegin', `<div class="alert alert-${alertStyle}" >${message}</div>`)
+    }
+  });
+</script>
 {% endblock %}
