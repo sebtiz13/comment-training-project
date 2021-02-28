@@ -28,8 +28,6 @@ services:
     build:
       context: .
       dockerfile: docker/php-fpm.dockerfile
-    volumes:
-      - ./:/var/www/
     networks:
       - net-bridge
     environment:
@@ -41,10 +39,8 @@ services:
   # PHP worker run the consumers for RabbitMQ queue
   php-worker:
     <<: *php-fpm
-    restart: always
+    restart: unless-stopped
     command: sh -c "sleep 2 && bin/console messenger:consume async --memory-limit=128M"
-    depends_on:
-      - rabbitmq
     environment:
       # Disable xdebug
       XDEBUG_CONFIG: discover_client_host=Off
@@ -54,8 +50,6 @@ services:
     image: nginx:alpine
     ports:
       - 8080:80
-    volumes_from:
-      - php
     volumes:
       - ./docker/site.conf:/etc/nginx/conf.d/default.conf
     networks:
@@ -68,10 +62,3 @@ services:
       - 1080:80
     networks:
       - net-bridge
-
-networks:
-  net-bridge:
-
-volumes:
-  appData:
-    driver: local

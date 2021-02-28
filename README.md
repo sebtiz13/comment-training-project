@@ -64,5 +64,5 @@ docker-compose exec php vendor/bin/phpstan analyse
 For development, you can use docker-compose-dev.yml to use local files instead files from container
 
 ```shell
-docker-compose -f docker-compose-dev.yml up -d
+docker-compose -f docker-compose.dev.yml up -d
 ```
