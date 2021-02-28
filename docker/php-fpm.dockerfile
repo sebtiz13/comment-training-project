@@ -31,12 +31,16 @@ RUN docker-php-ext-enable xdebug \
 
 COPY ./docker/php /usr/local/etc/php/conf.d/
 
+# Set workdir before composer install otherwise the command are executed in /var/www/public
+WORKDIR /var/www/
+
 COPY . /var/www
 
 RUN composer install
 
-CMD ["php-fpm", "-F"]
+# Fix permission for opcache preload
+RUN chown www-data:www-data -R /var/www
 
-WORKDIR /var/www/
+CMD ["php-fpm", "-F"]
 
 EXPOSE 9000
