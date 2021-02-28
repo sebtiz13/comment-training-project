@@ -11,6 +11,11 @@ services:
       file: docker-compose.base.yml
       service: rabbitmq
 
+  mercure:
+    extends:
+      file: docker-compose.base.yml
+      service: mercure
+
   php:
     extends:
       file: docker-compose.base.yml

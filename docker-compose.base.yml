@@ -24,6 +24,23 @@ services:
       RABBITMQ_DEFAULT_USER: website
       RABBITMQ_DEFAULT_PASS: website_password
 
+  mercure:
+    image: dunglas/mercure
+    restart: unless-stopped
+    environment:
+      SERVER_NAME: ':3000'
+      MERCURE_PUBLISHER_JWT_KEY: ${MERCURE_JWT_KEY}
+      MERCURE_SUBSCRIBER_JWT_KEY: ${MERCURE_JWT_KEY}
+      MERCURE_EXTRA_DIRECTIVES: |-
+        cors_origins "http://localhost:8080"
+    ports:
+      - 3000:3000
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - net-bridge
+
   php: &php-fpm
     build:
       context: .

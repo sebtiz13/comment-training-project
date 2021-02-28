@@ -11,6 +11,12 @@ services:
       file: docker-compose.base.yml
       service: rabbitmq
 
+  mercure:
+    extends:
+      file: docker-compose.base.yml
+      service: mercure
+    command: /usr/bin/caddy run -config /etc/caddy/Caddyfile.dev
+
   php:
     extends:
       file: docker-compose.base.yml
