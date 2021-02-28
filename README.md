@@ -1,13 +1,15 @@
 # Comment training project
 
 Create basic symfony 5 application with comment form to push message in RabbitMQ,
-this message is depiled by an symfony cli worker to send email.
+this message is depiled by an symfony cli worker to send email.\
+Cli worker push message to the front with a mercure channel listened by javascript to display result in interface
 
 ## Stack
 
 - Symfony 5
 - RabbitMQ
 - Docker
+- Mercure
 
 ## Tools
 
